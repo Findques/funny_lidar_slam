@@ -50,7 +50,7 @@ void PreProcessing::InitVoxelGridFilter() {
 
 void PreProcessing::Run() {
   LOG(INFO) << "\033[1;32m----> PreProcessing Started.\033[0m";
-
+  rclcpp::Rate rate(50);
   while (rclcpp::ok()) {
     sensor_msgs::msg::PointCloud2::ConstSharedPtr raw_cloud_ros;
 
@@ -104,7 +104,7 @@ void PreProcessing::Run() {
       cloud_end_timestamp = curr_cloud_timestamp;
     }
 
-    DLOG(INFO) << std::setprecision(15) << "last   cloud  timestamp: "
+    DLOG(INFO) << std::setprecision(15) << "last cloud timestamp: "
                << static_cast<double>(last_cloud_timestamp) *
                       kMicroseconds2Seconds;
     DLOG(INFO) << std::setprecision(15) << "current cloud timestamp: "
@@ -281,6 +281,7 @@ void PreProcessing::Run() {
     }
 
     lidar_distortion_corrector_ptr_->SetDataSearcher(nullptr);
+    rate.sleep();
   }
 }
 

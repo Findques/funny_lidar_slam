@@ -53,7 +53,8 @@ IF(UNIX)
                     ${G2O_SOLVER_CHOLMOD_LIB}
                     ${G2O_SOLVER_PCG_LIB}
                     ${G2O_SOLVER_CSPARSE_LIB}
-                    ${G2O_INCREMENTAL_LIB})
+                    ${G2O_INCREMENTAL_LIB}
+                    g2o_core g2o_stuff g2o_types_slam3d g2o_solver_dense g2o_solver_pcg g2o_solver_csparse g2o_csparse_extension)
 
   IF(G2O_LIBRARIES AND G2O_INCLUDE_DIR)
     SET(G2O_FOUND "YES")

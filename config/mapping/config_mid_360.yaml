@@ -12,18 +12,19 @@
             lidar_sensor_type: Livox_Mid_360
             lidar_point_jump_span: 3
             lidar_point_time_scale: 1.0e-9
-            lidar_use_min_distance: 0.5
-            lidar_use_max_distance: 1000.0
+            lidar_use_min_distance: 0.3
+            lidar_use_max_distance: 20.0
             lidar_rotation_noise_std: 0.001
             lidar_position_noise_std: 0.01
 
+
         imu:
-            init_acc_bias: 0.0
-            init_gyro_bias: 0.0
-            acc_noise_std: 0.1
-            gyro_noise_std: 0.1
-            acc_rw_noise_std: 1.0e-4
-            gyro_rw_noise_std: 1.0e-4
+            init_acc_bias: 0.0016
+            init_gyro_bias: 0.055
+            acc_noise_std: 0.0005373025386531488
+            gyro_noise_std: 0.0002983446549817709 
+            acc_rw_noise_std: 2.4980365974904602e-05
+            gyro_rw_noise_std: 2.1129871835629254e-05
             has_orientation: false
             data_searcher_buffer_size: 5000
 
@@ -31,24 +32,24 @@
 
         calibration:
             lidar_to_imu:
+                # [
+                #     1.0, 0.0, 0.0, 0.1,
+                #     0.0, 1.0, 0.0, 0.05,
+                #     0.0, 0.0, 1.0, 0.075,
+                #     0.0, 0.0, 0.0, 1.0,
+                # ]
+                # [
+                #     1.0, 0.0, 0.0, -0.011,
+                #     0.0, 1.0, 0.0, -0.02329,
+                #     0.0, 0.0, 1.0, 0.04412,
+                #     0.0, 0.0, 0.0, 1.0,
+                # ]
                 [
-                    1.0,
-                    0.0,
-                    0.0,
-                    -0.011,
-                    0.0,
-                    1.0,
-                    0.0,
-                    -0.02329,
-                    0.0,
-                    0.0,
-                    1.0,
-                    0.04412,
-                    0.0,
-                    0.0,
-                    0.0,
-                    1.0,
-                ]
+                    1.000, 0.000, 0.000, -0.168,
+                    0.000, 1.000, 0.000, -0.285,
+                    0.000, 0.000, 1.000, -0.241,
+                    0.000, 0.000, 0.000, 1.000,
+                ] # base_link to imu
 
         frontend:
             fusion_opti_iters: 30
@@ -56,19 +57,39 @@
 
             registration_and_searcher_mode: PointToPlane_IVOX
             feature:
+                corner_thres: 10.0
+                planar_thres: 0.1
                 planar_voxel_filter_size: 0.5
+                corner_voxel_filter_size: 0.5
             registration:
-                optimization_iter_num: 30
+                line_ratio_thres: 0.9
+                point_search_thres: 5.0
                 point_to_planar_thres: 0.1
-                position_converge_thres: 0.001
+                local_planar_map_size: 100
+                local_corner_map_size: 100
+                keyframe_delta_distance: 1.0
+                keyframe_delta_rotation: 0.2
                 rotation_converge_thres: 0.005
+                position_converge_thres: 0.001
+                local_corner_voxel_filter_size: 0.5
+                local_planar_voxel_filter_size: 0.5
+                local_map_size: 1000
+                local_map_cloud_filter_size: 0.4
+                source_cloud_filter_size: 0.4
+                optimization_iter_num: 30
+                ndt_voxel_size: 1.0
+                ndt_outlier_threshold: 0.5
+                ndt_min_points_in_voxel: 5
+                ndt_max_points_in_voxel: 50
+                ndt_min_effective_pts: 10
+                ndt_capacity: 10000
 
         system:
             keyframe_delta_distance: 1.0
             keyframe_delta_rotation: 0.2
-            enable_loopclosure: false
+            enable_loopclosure: true
             enable_visualize_global_map: true
-            global_map_visualization_resolution: 0.7
+            global_map_visualization_resolution: 0.05
             tile_map_grid_size: 100.0
 
         loopclosure:

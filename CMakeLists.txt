@@ -32,6 +32,9 @@ include_directories(${GLOG_INCLUDE_DIRS})
 include(cmake/g2o.cmake)
 include_directories(${G2O_INCLUDE_DIRS})
 
+# fmt
+find_package(fmt REQUIRED)
+
 
 find_package(ament_cmake_auto REQUIRED)
 ament_auto_find_build_dependencies()
@@ -105,6 +108,7 @@ target_link_libraries(
     ${YAML_CPP_LIBRARIES}
     ${FLANN_LIBRARY}
     ${G2O_LIBRARIES}
+    fmt::fmt
 )
 
 rosidl_get_typesupport_target(cpp_typesupport_target

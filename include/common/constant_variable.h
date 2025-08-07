@@ -37,6 +37,6 @@ static const std::string kTileMapIndicesFileName = "tile_map_indices.txt";
 static const std::string kGlobalMapFileName = "map.pcd";
 
 static const std::string kRosMapFrameID = "map";
-static const std::string kRosLidarFrameID = "lidar";
+static const std::string kRosLidarFrameID = "base_link";
 
 #endif //FUNNY_LIDAR_SLAM_CONSTANT_VARIABLE_H

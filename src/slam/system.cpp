@@ -387,7 +387,7 @@ bool System::SaveMap(
     *map_cloud += TransformPointCloud(*cloud, keyframe->pose_);
   }
 
-  map_cloud = VoxelGridCloud(*map_cloud, 0.3);
+  map_cloud = VoxelGridCloud(*map_cloud, 0.1);
 
   if (!map_cloud->empty()) {
     std::string map_path;

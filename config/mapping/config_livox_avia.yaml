@@ -2,7 +2,7 @@
     ros__parameters:
         sensor_topic:
             lidar_topic: "/livox/lidar"
-            imu_topic: "/livox/imu"
+            imu_topic: "/imu"
 
         slam_mode: 1 # 1: Mapping, 2: Localization
 
@@ -12,7 +12,7 @@
             lidar_sensor_type: Livox_Avia
             lidar_point_jump_span: 4
             lidar_point_time_scale: 1.0e-9
-            lidar_use_min_distance: 4.0
+            lidar_use_min_distance: 0.0
             lidar_use_max_distance: 1000.0
             lidar_rotation_noise_std: 0.001
             lidar_position_noise_std: 0.01
@@ -30,24 +30,11 @@
         gravity: 9.81
 
         calibration:
-            lidar_to_imu:
-                [
-                    1.0,
-                    0.0,
-                    0.0,
-                    0.04165,
-                    0.0,
-                    1.0,
-                    0.0,
-                    0.02326,
-                    0.0,
-                    0.0,
-                    1.0,
-                    -0.0284,
-                    0.0,
-                    0.0,
-                    0.0,
-                    1.0,
+            [
+                    1.0, 0.0, 0.0, 0.1,
+                    0.0, 1.0, 0.0, 0.05,
+                    0.0, 0.0, 1.0, 0.075,
+                    0.0, 0.0, 0.0, 1.0,
                 ]
 
         frontend:

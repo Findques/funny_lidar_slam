@@ -12,18 +12,18 @@
             lidar_sensor_type: Livox_Mid_360
             lidar_point_jump_span: 3
             lidar_point_time_scale: 1.0e-9
-            lidar_use_min_distance: 0.5
-            lidar_use_max_distance: 1000.0
+            lidar_use_min_distance: 0.2
+            lidar_use_max_distance: 20.0
             lidar_rotation_noise_std: 0.001
             lidar_position_noise_std: 0.01
 
         imu:
-            init_acc_bias: 0.0
-            init_gyro_bias: 0.0
-            acc_noise_std: 0.1
-            gyro_noise_std: 0.1
-            acc_rw_noise_std: 1.0e-4
-            gyro_rw_noise_std: 1.0e-4
+            init_acc_bias: 0.0016
+            init_gyro_bias: 0.055
+            acc_noise_std: 0.0005373025386531488
+            gyro_noise_std: 0.0002983446549817709 
+            acc_rw_noise_std: 2.4980365974904602e-05
+            gyro_rw_noise_std: 2.1129871835629254e-05
             has_orientation: false
             data_searcher_buffer_size: 5000
 
@@ -31,28 +31,22 @@
 
         calibration:
             lidar_to_imu:
+                # [
+                #     1.0, 0.0, 0.0, -0.011,
+                #     0.0, 1.0, 0.0, -0.02329,
+                #     0.0, 0.0, 1.0, 0.04412,
+                #     0.0, 0.0, 0.0, 1.0,
+                # ]
                 [
-                    1.0,
-                    0.0,
-                    0.0,
-                    -0.011,
-                    0.0,
-                    1.0,
-                    0.0,
-                    -0.02329,
-                    0.0,
-                    0.0,
-                    1.0,
-                    0.04412,
-                    0.0,
-                    0.0,
-                    0.0,
-                    1.0,
-                ]
+                    1.000, 0.000, 0.000, -0.168,
+                    0.000, 1.000, 0.000, -0.285,
+                    0.000, 0.000, 1.000, -0.241,
+                    0.000, 0.000, 0.000, 1.000,
+                ] # base_link to imu
 
         frontend:
-            fusion_opti_iters: 30
-            fusion_method: TightCouplingOptimization # LooseCoupling, TightCouplingKF, TightCouplingOptimization
+            fusion_opti_iters: 0
+            fusion_method: LooseCoupling # LooseCoupling, TightCouplingKF, TightCouplingOptimization
 
             registration_and_searcher_mode: IcpOptimized
             registration:
@@ -64,4 +58,21 @@
                 position_converge_thres: 0.005
                 rotation_converge_thres: 0.005
                 keyframe_delta_distance: 0.0
-                keyframe_delta_rotation: 0.0
+                keyframe_delta_rotation: 0.9
+
+        system:
+            keyframe_delta_distance: 1.0
+            keyframe_delta_rotation: 0.2
+            enable_loopclosure: true
+            enable_visualize_global_map: true
+            global_map_visualization_resolution: 0.05
+            tile_map_grid_size: 100.0
+
+        loopclosure:
+            registration_converge_threshold: 1.5
+            skip_near_loopclosure_threshold: 100
+            skip_near_keyframe_threshold: 100
+            candidate_local_map_left_range: 20
+            candidate_local_map_right_range: 20
+            loopclosure_local_map_left_range: 30
+            near_neighbor_distance_threshold: 10.0
